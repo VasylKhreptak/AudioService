@@ -44,6 +44,8 @@ namespace Plugins.AudioService
                 (id, value) => _activePool[id].Audio.Position = value);
             Rotation = new Property<int, Quaternion>(canAccess, id => _activePool[id].Audio.Rotation,
                 (id, value) => _activePool[id].Audio.Rotation = value);
+            Clip = new Property<int, AudioClip>(canAccess, id => _activePool[id].Audio.Clip,
+                (id, value) => _activePool[id].Audio.Clip = value);
             AudioMixerGroup = new Property<int, AudioMixerGroup>(canAccess, id => _activePool[id].Audio.AudioMixerGroup,
                 (id, value) => _activePool[id].Audio.AudioMixerGroup = value);
             Mute = new Property<int, bool>(canAccess, id => _activePool[id].Audio.Mute,
@@ -87,6 +89,7 @@ namespace Plugins.AudioService
         public IReadonlyProperty<int, IReadonlyTimer> Timer { get; }
         public IProperty<int, Vector3> Position { get; }
         public IProperty<int, Quaternion> Rotation { get; }
+        public IProperty<int, AudioClip> Clip { get; }
         public IProperty<int, AudioMixerGroup> AudioMixerGroup { get; }
         public IProperty<int, bool> Mute { get; }
         public IProperty<int, bool> BypassEffects { get; }
@@ -143,6 +146,15 @@ namespace Plugins.AudioService
             }
         }
 
+        public void Pause(Func<IReadonlyAudio, bool> predicate)
+        {
+            foreach (var pooledObject in _activePool.Values.ToList())
+            {
+                if (predicate(pooledObject.Audio))
+                    pooledObject.Audio.Pause();
+            }
+        }
+
         public void Resume(int id)
         {
             if (_activePool.TryGetValue(id, out var pooledObject))
@@ -154,6 +166,15 @@ namespace Plugins.AudioService
             foreach (var pooledObject in _activePool.Values.ToList())
             {
                 pooledObject.Audio.Resume();
+            }
+        }
+
+        public void Resume(Func<IReadonlyAudio, bool> predicate)
+        {
+            foreach (var pooledObject in _activePool.Values.ToList())
+            {
+                if (predicate(pooledObject.Audio))
+                    pooledObject.Audio.Resume();
             }
         }
 
@@ -171,9 +192,31 @@ namespace Plugins.AudioService
             }
         }
 
+        public void Stop(Func<IReadonlyAudio, bool> predicate)
+        {
+            foreach (var pooledObject in _activePool.Values.ToList())
+            {
+                if (predicate(pooledObject.Audio))
+                    pooledObject.Audio.Stop();
+            }
+        }
+
         public bool IsActive(int id) => _activePool.ContainsKey(id);
 
         public int ActiveAudiosCount() => _activePool.Count;
+
+        public int ActiveAudiosCount(Func<IReadonlyAudio, bool> predicate)
+        {
+            int count = 0;
+
+            foreach (var pooledObject in _activePool.Values.ToList())
+            {
+                if (predicate(pooledObject.Audio))
+                    count++;
+            }
+
+            return count;
+        }
 
         public void ApplySettings(int id, AudioSettings settings)
         {
@@ -218,7 +261,10 @@ namespace Plugins.AudioService
         {
             pooledObject.Subscriptions.Add(pooledObject.GameObject.OnEnableAsObservable().Subscribe(_ => OnEnabled(pooledObject)));
             pooledObject.Subscriptions.Add(pooledObject.GameObject.OnDisableAsObservable().Subscribe(_ => OnDisabled(pooledObject)));
+            pooledObject.Subscriptions.Add(pooledObject.GameObject.OnDestroyAsObservable().Subscribe(_ => OnDestroyed(pooledObject)));
         }
+
+        private void StopObserving(PooledObject pooledObject) => pooledObject.Subscriptions.Dispose();
 
         private void OnEnabled(PooledObject pooledObject)
         {
@@ -231,6 +277,15 @@ namespace Plugins.AudioService
         {
             _activePool.Remove(pooledObject.ID);
             _inactivePool.Add(pooledObject);
+        }
+
+        private void OnDestroyed(PooledObject pooledObject)
+        {
+            StopObserving(pooledObject);
+            _activePool.Remove(pooledObject.ID);
+            _inactivePool.Remove(pooledObject);
+            _totalPool.Remove(pooledObject);
+            pooledObject.Audio.Stop();
         }
 
         private PooledObject GetFree()
@@ -269,6 +324,9 @@ namespace Plugins.AudioService
                     lessImportantPooledObject = pooledObject;
                 }
             }
+
+            if (lessImportantPooledObject == null)
+                return null;
 
             lessImportantPooledObject.Audio.Stop();
             return lessImportantPooledObject;

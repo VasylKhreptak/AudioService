@@ -5,7 +5,7 @@ using AudioSettings = Plugins.AudioService.Data.AudioSettings;
 
 namespace Plugins.AudioService.Facade.Core
 {
-    public interface IAudio
+    public interface IAudio : IReadonlyAudio
     {
         public void Play();
         public void Stop();
@@ -13,27 +13,27 @@ namespace Plugins.AudioService.Facade.Core
         public void Resume();
         public void ApplySettings(AudioSettings settings);
 
-        public IReadonlyTimer Timer { get; }
-        public Vector3 Position { get; set; }
-        public Quaternion Rotation { get; set; }
-        public AudioClip Clip { get; set; }
-        public AudioMixerGroup AudioMixerGroup { get; set; }
-        public bool Mute { get; set; }
-        public bool BypassEffects { get; set; }
-        public bool BypassListenerEffects { get; set; }
-        public bool BypassReverbZones { get; set; }
-        public bool Loop { get; set; }
-        public bool IsPlaying { get; }
-        public int Priority { get; set; }
-        public float Volume { get; set; }
-        public float Pitch { get; set; }
-        public float StereoPan { get; set; }
-        public float SpatialBlend { get; set; }
-        public float ReverbZoneMix { get; set; }
-        public float DopplerLevel { get; set; }
-        public float Spread { get; set; }
-        public AudioRolloffMode RolloffMode { get; set; }
-        public float MinDistance { get; set; }
-        public float MaxDistance { get; set; }
+        public new IReadonlyTimer Timer { get; }
+        public new Vector3 Position { get; set; }
+        public new Quaternion Rotation { get; set; }
+        public new AudioClip Clip { get; set; }
+        public new AudioMixerGroup AudioMixerGroup { get; set; }
+        public new bool Mute { get; set; }
+        public new bool BypassEffects { get; set; }
+        public new bool BypassListenerEffects { get; set; }
+        public new bool BypassReverbZones { get; set; }
+        public new bool Loop { get; set; }
+        public new bool IsPlaying { get; }
+        public new int Priority { get; set; }
+        public new float Volume { get; set; }
+        public new float Pitch { get; set; }
+        public new float StereoPan { get; set; }
+        public new float SpatialBlend { get; set; }
+        public new float ReverbZoneMix { get; set; }
+        public new float DopplerLevel { get; set; }
+        public new float Spread { get; set; }
+        public new AudioRolloffMode RolloffMode { get; set; }
+        public new float MinDistance { get; set; }
+        public new float MaxDistance { get; set; }
     }
 }
