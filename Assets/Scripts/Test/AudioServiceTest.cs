@@ -45,6 +45,7 @@ namespace Test
         [Button] void ResumeNotLooped() => _audioService.Resume(audio => audio.Loop == false);
         [Button] void IsActive() => Debug.Log(_audioService.IsActive(_audioID));
         [Button] void ActiveAudiosCount() => Debug.Log(_audioService.ActiveAudiosCount());
+        [Button] void ActiveLoopedAudiosCount() => Debug.Log(_audioService.ActiveAudiosCount(audio => audio.Loop));
         [Button] void ApplySettings() => _audioService.ApplySettings(_audioID, _settings);
     }
 }

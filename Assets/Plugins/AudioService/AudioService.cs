@@ -140,7 +140,7 @@ namespace Plugins.AudioService
 
         public void PauseAll()
         {
-            foreach (var pooledObject in _activePool.Values.ToList())
+            foreach (var pooledObject in _activePool.Values)
             {
                 pooledObject.Audio.Pause();
             }
@@ -148,7 +148,7 @@ namespace Plugins.AudioService
 
         public void Pause(Func<IReadonlyAudio, bool> predicate)
         {
-            foreach (var pooledObject in _activePool.Values.ToList())
+            foreach (var pooledObject in _activePool.Values)
             {
                 if (predicate(pooledObject.Audio))
                     pooledObject.Audio.Pause();
@@ -163,7 +163,7 @@ namespace Plugins.AudioService
 
         public void ResumeAll()
         {
-            foreach (var pooledObject in _activePool.Values.ToList())
+            foreach (var pooledObject in _activePool.Values)
             {
                 pooledObject.Audio.Resume();
             }
@@ -171,7 +171,7 @@ namespace Plugins.AudioService
 
         public void Resume(Func<IReadonlyAudio, bool> predicate)
         {
-            foreach (var pooledObject in _activePool.Values.ToList())
+            foreach (var pooledObject in _activePool.Values)
             {
                 if (predicate(pooledObject.Audio))
                     pooledObject.Audio.Resume();
@@ -209,7 +209,7 @@ namespace Plugins.AudioService
         {
             int count = 0;
 
-            foreach (var pooledObject in _activePool.Values.ToList())
+            foreach (var pooledObject in _activePool.Values)
             {
                 if (predicate(pooledObject.Audio))
                     count++;
