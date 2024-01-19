@@ -32,7 +32,7 @@ namespace Plugins.AudioService.Facade
             get => _source.time;
             set
             {
-                value = Mathf.Max(0, value);
+                value = Mathf.Clamp(value, 0, Clip.length - 0.01f);
 
                 _source.time = value;
                 _timer.SetTime(value);
