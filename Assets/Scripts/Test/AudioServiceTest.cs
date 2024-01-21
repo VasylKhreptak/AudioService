@@ -56,13 +56,13 @@ namespace Test
         [Button] private void SetSecond() => SetTime(1);
         [Button] private void Stop() => _audioService.Stop(_audioID);
         [Button] private void StopAll() => _audioService.StopAll();
-        [Button] private void StopNotLooped() => _audioService.Stop(audio => audio.Loop == false);
+        [Button] private void StopNotLooped() => _audioService.StopAll(audio => audio.Loop == false);
         [Button] private void Pause() => _audioService.Pause(_audioID);
         [Button] private void PauseAll() => _audioService.PauseAll();
-        [Button] private void PauseNotLooped() => _audioService.Pause(audio => audio.Loop == false);
+        [Button] private void PauseNotLooped() => _audioService.PauseAll(audio => audio.Loop == false);
         [Button] private void Resume() => _audioService.Resume(_audioID);
         [Button] private void ResumeAll() => _audioService.ResumeAll();
-        [Button] private void ResumeNotLooped() => _audioService.Resume(audio => audio.Loop == false);
+        [Button] private void ResumeNotLooped() => _audioService.ResumeAll(audio => audio.Loop == false);
         [Button] private void IsActive() => Debug.Log(_audioService.IsActive(_audioID));
         [Button] private void ActiveAudiosCount() => Debug.Log(_audioService.ActiveAudiosCount());
         [Button] private void ActiveLoopedAudiosCount() => Debug.Log(_audioService.ActiveAudiosCount(audio => audio.Loop));
