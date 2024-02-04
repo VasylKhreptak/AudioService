@@ -76,7 +76,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _preferences:
     InitialSize: 10
-    MaxSize: 50
+    MaxSize: 30
     DefaultSettings:
       AudioMixerGroup: {fileID: 0}
       Mute: 0

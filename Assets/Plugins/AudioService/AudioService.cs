@@ -129,7 +129,8 @@ namespace Plugins.AudioService
             return pooledObject.ID;
         }
 
-        public int Play(AudioClip clip, Vector3 position, AudioSettings settings) => Play(clip, position, Quaternion.identity, settings);
+        public int Play(AudioClip clip, Vector3 position, AudioSettings settings) =>
+            Play(clip, position, Quaternion.identity, settings);
 
         public int Play(AudioClip clip, AudioSettings settings) => Play(clip, Vector3.zero, Quaternion.identity, settings);
 
@@ -315,24 +316,37 @@ namespace Plugins.AudioService
 
         private PooledObject GetLessImportant()
         {
-            int priority = int.MinValue;
+            int minPriority = int.MinValue;
+            float maxPlayTime = float.MinValue;
+            bool allPrioritiesAreEqual = true;
 
+            PooledObject foundPooledObject = null;
             PooledObject lessImportantPooledObject = null;
+            PooledObject longestPlayedPooledObject = null;
 
-            foreach (PooledObject pooledObject in _activePool.Values)
+            ICollection<PooledObject> activePool = _activePool.Values;
+            minPriority = activePool.First().Audio.Priority;
+
+            foreach (PooledObject pooledObject in activePool)
             {
-                if (pooledObject.Audio.Priority > priority)
+                if (pooledObject.Audio.Priority > minPriority)
                 {
-                    priority = pooledObject.Audio.Priority;
+                    minPriority = pooledObject.Audio.Priority;
                     lessImportantPooledObject = pooledObject;
+                    allPrioritiesAreEqual = false;
+                }
+
+                if (pooledObject.Audio.Timer.Time.Value > maxPlayTime)
+                {
+                    maxPlayTime = pooledObject.Audio.Timer.Time.Value;
+                    longestPlayedPooledObject = pooledObject;
                 }
             }
 
-            if (lessImportantPooledObject == null)
-                return null;
+            foundPooledObject = allPrioritiesAreEqual ? longestPlayedPooledObject : lessImportantPooledObject;
 
-            lessImportantPooledObject.Audio.Stop();
-            return lessImportantPooledObject;
+            foundPooledObject?.Audio.Stop();
+            return foundPooledObject;
         }
 
         [Serializable]
