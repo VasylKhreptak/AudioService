@@ -167,7 +167,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a0dbb1bd61d439aa2f3987dbc1d815d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clip: {fileID: 8300000, guid: 484811e053dedf34fb7bb16afb83be4c, type: 3}
+  _clips:
+  - {fileID: 8300000, guid: 484811e053dedf34fb7bb16afb83be4c, type: 3}
   _settings:
     AudioMixerGroup: {fileID: 0}
     Mute: 0
@@ -187,6 +188,8 @@ MonoBehaviour:
     MinDistance: 1
     MaxDistance: 500
   _interval: 0.05
+  _minVolume: 0.5
+  _maxVolume: 1
 --- !u!1 &667147195
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,15 +5,18 @@ using UniRx;
 using UnityEngine;
 using Zenject;
 using AudioSettings = Plugins.AudioService.Data.AudioSettings;
+using Random = UnityEngine.Random;
 
 namespace Test
 {
     public class MassivePlayTest : MonoBehaviour
     {
         [Header("Preferences")]
-        [SerializeField] private AudioClip _clip;
+        [SerializeField] private AudioClip[] _clips;
         [SerializeField] private AudioSettings _settings;
         [SerializeField] private float _interval = 0.05f;
+        [SerializeField] private float _minVolume = 0.5f;
+        [SerializeField] private float _maxVolume = 1f;
 
         private IAudioService _audioService;
 
@@ -39,6 +42,10 @@ namespace Test
         [Button]
         private void StopPlaying() => _subscription?.Dispose();
 
-        private void Play() => _audioService.Play(_clip, _settings);
+        private void Play()
+        {
+            _settings.Volume = Random.Range(_minVolume, _maxVolume);
+            _audioService.Play(_clips[Random.Range(0, _clips.Length - 1)], _settings);
+        }
     }
 }

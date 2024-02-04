@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using Plugins.AudioService.Core;
 using Plugins.AudioService.Facade;
@@ -32,6 +33,16 @@ namespace Plugins.AudioService
             GameObject gameObject = new GameObject("AudioService");
             Object.DontDestroyOnLoad(gameObject);
             _root = gameObject.transform;
+
+            AudioConfiguration audioConfiguration = UnityEngine.AudioSettings.GetConfiguration();
+
+            if (_preferences.MaxSize > audioConfiguration.numVirtualVoices)
+            {
+                Debug.LogWarning("MaxSize is greater than the number of virtual voices. MaxSize will be set to the number of virtual voices.");
+                _preferences.MaxSize = audioConfiguration.numVirtualVoices;
+            }
+            
+            _preferences.InitialSize = Mathf.Min(_preferences.InitialSize, _preferences.MaxSize);
 
             Initialize();
 
@@ -295,9 +306,7 @@ namespace Plugins.AudioService
         private PooledObject GetFree()
         {
             if (_inactivePool.Count > 0)
-            {
                 return MakeActive(_inactivePool.First());
-            }
 
             if (_totalPool.Count < _preferences.MaxSize)
             {
