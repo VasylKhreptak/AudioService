@@ -39,18 +39,73 @@ namespace Plugins.AudioService.Facade
             }
         }
 
-        public Vector3 Position { get => _transform.position; set => _transform.position = value; }
-        public Quaternion Rotation { get => _transform.rotation; set => _transform.rotation = value; }
-        public AudioClip Clip { get => _source.clip; set => _source.clip = value; }
-        public AudioMixerGroup AudioMixerGroup { get => _source.outputAudioMixerGroup; set => _source.outputAudioMixerGroup = value; }
-        public bool Mute { get => _source.mute; set => _source.mute = value; }
-        public bool BypassEffects { get => _source.bypassEffects; set => _source.bypassEffects = value; }
-        public bool BypassListenerEffects { get => _source.bypassListenerEffects; set => _source.bypassListenerEffects = value; }
-        public bool BypassReverbZones { get => _source.bypassReverbZones; set => _source.bypassReverbZones = value; }
-        public bool Loop { get => _source.loop; set => _source.loop = value; }
+        public Vector3 Position
+        {
+            get => _transform.position;
+            set => _transform.position = value;
+        }
+
+        public Quaternion Rotation
+        {
+            get => _transform.rotation;
+            set => _transform.rotation = value;
+        }
+
+        public AudioClip Clip
+        {
+            get => _source.clip;
+            set => _source.clip = value;
+        }
+
+        public AudioMixerGroup AudioMixerGroup
+        {
+            get => _source.outputAudioMixerGroup;
+            set => _source.outputAudioMixerGroup = value;
+        }
+
+        public bool Mute
+        {
+            get => _source.mute;
+            set => _source.mute = value;
+        }
+
+        public bool BypassEffects
+        {
+            get => _source.bypassEffects;
+            set => _source.bypassEffects = value;
+        }
+
+        public bool BypassListenerEffects
+        {
+            get => _source.bypassListenerEffects;
+            set => _source.bypassListenerEffects = value;
+        }
+
+        public bool BypassReverbZones
+        {
+            get => _source.bypassReverbZones;
+            set => _source.bypassReverbZones = value;
+        }
+
+        public bool Loop
+        {
+            get => _source.loop;
+            set => _source.loop = value;
+        }
+
         public bool IsPlaying => _source.isPlaying;
-        public int Priority { get => _source.priority; set => _source.priority = value; }
-        public float Volume { get => _source.volume; set => _source.volume = value; }
+
+        public int Priority
+        {
+            get => _source.priority;
+            set => _source.priority = value;
+        }
+
+        public float Volume
+        {
+            get => _source.volume;
+            set => _source.volume = value;
+        }
 
         public float Pitch
         {
@@ -62,14 +117,53 @@ namespace Plugins.AudioService.Facade
             }
         }
 
-        public float StereoPan { get => _source.panStereo; set => _source.panStereo = value; }
-        public float SpatialBlend { get => _source.spatialBlend; set => _source.spatialBlend = value; }
-        public float ReverbZoneMix { get => _source.reverbZoneMix; set => _source.reverbZoneMix = value; }
-        public float DopplerLevel { get => _source.dopplerLevel; set => _source.dopplerLevel = value; }
-        public float Spread { get => _source.spread; set => _source.spread = value; }
-        public AudioRolloffMode RolloffMode { get => _source.rolloffMode; set => _source.rolloffMode = value; }
-        public float MinDistance { get => _source.minDistance; set => _source.minDistance = value; }
-        public float MaxDistance { get => _source.maxDistance; set => _source.maxDistance = value; }
+        public float StereoPan
+        {
+            get => _source.panStereo;
+            set => _source.panStereo = value;
+        }
+
+        public float SpatialBlend
+        {
+            get => _source.spatialBlend;
+            set => _source.spatialBlend = value;
+        }
+
+        public float ReverbZoneMix
+        {
+            get => _source.reverbZoneMix;
+            set => _source.reverbZoneMix = value;
+        }
+
+        public float DopplerLevel
+        {
+            get => _source.dopplerLevel;
+            set => _source.dopplerLevel = value;
+        }
+
+        public float Spread
+        {
+            get => _source.spread;
+            set => _source.spread = value;
+        }
+
+        public AudioRolloffMode RolloffMode
+        {
+            get => _source.rolloffMode;
+            set => _source.rolloffMode = value;
+        }
+
+        public float MinDistance
+        {
+            get => _source.minDistance;
+            set => _source.minDistance = value;
+        }
+
+        public float MaxDistance
+        {
+            get => _source.maxDistance;
+            set => _source.maxDistance = value;
+        }
 
         #endregion
 

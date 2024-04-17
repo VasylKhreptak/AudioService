@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
 using System.Linq;
 using Plugins.AudioService.Core;
 using Plugins.AudioService.Facade;
@@ -38,10 +37,11 @@ namespace Plugins.AudioService
 
             if (_preferences.MaxSize > audioConfiguration.numVirtualVoices)
             {
-                Debug.LogWarning("MaxSize is greater than the number of virtual voices. MaxSize will be set to the number of virtual voices.");
+                Debug.LogWarning(
+                    "MaxSize is greater than the number of virtual voices. MaxSize will be set to the number of virtual voices.");
                 _preferences.MaxSize = audioConfiguration.numVirtualVoices;
             }
-            
+
             _preferences.InitialSize = Mathf.Min(_preferences.InitialSize, _preferences.MaxSize);
 
             Initialize();
@@ -149,13 +149,13 @@ namespace Plugins.AudioService
 
         public void Pause(int id)
         {
-            if (_activePool.TryGetValue(id, out var pooledObject))
+            if (_activePool.TryGetValue(id, out PooledObject pooledObject))
                 pooledObject.Audio.Pause();
         }
 
         public void PauseAll()
         {
-            foreach (var pooledObject in _activePool.Values)
+            foreach (PooledObject pooledObject in _activePool.Values)
             {
                 pooledObject.Audio.Pause();
             }
@@ -163,7 +163,7 @@ namespace Plugins.AudioService
 
         public void PauseAll(Func<IReadonlyAudio, bool> predicate)
         {
-            foreach (var pooledObject in _activePool.Values)
+            foreach (PooledObject pooledObject in _activePool.Values)
             {
                 if (predicate(pooledObject.Audio))
                     pooledObject.Audio.Pause();
@@ -172,13 +172,13 @@ namespace Plugins.AudioService
 
         public void Resume(int id)
         {
-            if (_activePool.TryGetValue(id, out var pooledObject))
+            if (_activePool.TryGetValue(id, out PooledObject pooledObject))
                 pooledObject.Audio.Resume();
         }
 
         public void ResumeAll()
         {
-            foreach (var pooledObject in _activePool.Values)
+            foreach (PooledObject pooledObject in _activePool.Values)
             {
                 pooledObject.Audio.Resume();
             }
@@ -186,7 +186,7 @@ namespace Plugins.AudioService
 
         public void ResumeAll(Func<IReadonlyAudio, bool> predicate)
         {
-            foreach (var pooledObject in _activePool.Values)
+            foreach (PooledObject pooledObject in _activePool.Values)
             {
                 if (predicate(pooledObject.Audio))
                     pooledObject.Audio.Resume();
@@ -195,13 +195,13 @@ namespace Plugins.AudioService
 
         public void Stop(int id)
         {
-            if (_activePool.TryGetValue(id, out var pooledObject))
+            if (_activePool.TryGetValue(id, out PooledObject pooledObject))
                 pooledObject.Audio.Stop();
         }
 
         public void StopAll()
         {
-            foreach (var pooledObject in _activePool.Values.ToList())
+            foreach (PooledObject pooledObject in _activePool.Values.ToList())
             {
                 pooledObject.Audio.Stop();
             }
@@ -209,7 +209,7 @@ namespace Plugins.AudioService
 
         public void StopAll(Func<IReadonlyAudio, bool> predicate)
         {
-            foreach (var pooledObject in _activePool.Values.ToList())
+            foreach (PooledObject pooledObject in _activePool.Values.ToList())
             {
                 if (predicate(pooledObject.Audio))
                     pooledObject.Audio.Stop();
@@ -224,7 +224,7 @@ namespace Plugins.AudioService
         {
             int count = 0;
 
-            foreach (var pooledObject in _activePool.Values)
+            foreach (PooledObject pooledObject in _activePool.Values)
             {
                 if (predicate(pooledObject.Audio))
                     count++;
@@ -235,7 +235,7 @@ namespace Plugins.AudioService
 
         public void ApplySettings(int id, AudioSettings settings)
         {
-            if (_activePool.TryGetValue(id, out var pooledObject))
+            if (_activePool.TryGetValue(id, out PooledObject pooledObject))
                 pooledObject.Audio.ApplySettings(settings);
         }
 
