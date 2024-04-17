@@ -1,0 +1,1 @@
+This is my favourite tool for 3D games. It gives you full control over your music in the game. You can play 3d or 2d sounds, control almost all sound parameters in real time. You can event pause sounds and change pitch. It also uses object pooling. Based on timer.
