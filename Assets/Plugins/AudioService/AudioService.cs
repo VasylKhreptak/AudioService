@@ -37,8 +37,7 @@ namespace Plugins.AudioService
 
             if (_preferences.MaxSize > audioConfiguration.numVirtualVoices)
             {
-                Debug.LogWarning(
-                    "MaxSize is greater than the number of virtual voices. MaxSize will be set to the number of virtual voices.");
+                Debug.LogWarning("MaxSize is greater than the number of virtual voices. MaxSize will be set to the number of virtual voices.");
                 _preferences.MaxSize = audioConfiguration.numVirtualVoices;
             }
 
@@ -140,8 +139,7 @@ namespace Plugins.AudioService
             return pooledObject.ID;
         }
 
-        public int Play(AudioClip clip, Vector3 position, AudioSettings settings) =>
-            Play(clip, position, Quaternion.identity, settings);
+        public int Play(AudioClip clip, Vector3 position, AudioSettings settings) => Play(clip, position, Quaternion.identity, settings);
 
         public int Play(AudioClip clip, AudioSettings settings) => Play(clip, Vector3.zero, Quaternion.identity, settings);
 
