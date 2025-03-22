@@ -39,22 +39,34 @@ namespace Test
 
         #endregion
 
-        [Button] private void Stop() => _audioService.Stop(_audioID);
+        [Button]
+        private void Stop() => _audioService.Stop(_audioID);
 
-        [Button] void StopAll() => _audioService.StopAll();
+        [Button]
+        private void StopAll() => _audioService.StopAll();
 
-        [Button] void Pause() => _audioService.Pause(_audioID);
+        [Button]
+        private void Pause() => _audioService.Pause(_audioID);
 
-        [Button] void PauseAll() => _audioService.PauseAll();
+        [Button]
+        private void PauseAll() => _audioService.PauseAll();
 
-        [Button] void Resume() => _audioService.Resume(_audioID);
+        [Button]
+        private void Resume() => _audioService.Resume(_audioID);
 
-        [Button] void ResumeAll() => _audioService.ResumeAll();
+        [Button]
+        private void ResumeAll() => _audioService.ResumeAll();
 
-        [Button] void IsActive() => Debug.Log(_audioService.IsActive(_audioID));
+        [Button]
+        private void IsActive() => Debug.Log(_audioService.IsActive(_audioID));
 
-        [Button] void ActiveAudiosCount() => Debug.Log(_audioService.ActiveAudiosCount());
+        [Button]
+        private void ActiveAudiosCount() => Debug.Log(_audioService.ActiveAudiosCount());
 
-        [Button] void ApplySettings() => _audioService.ApplySettings(_audioID, _settings);
+        [Button]
+        private void ApplySettings() => _audioService.ApplySettings(_audioID, _settings);
+
+        [Button]
+        private void SetTime(float time) => _audioService.Time.TrySet(_audioID, time);
     }
 }

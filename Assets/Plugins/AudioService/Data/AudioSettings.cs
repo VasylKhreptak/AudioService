@@ -23,7 +23,7 @@ namespace Plugins.AudioService.Data
         [Range(0, 5f)] public float DopplerLevel = 1f;
         [Range(0, 360)] public float Spread;
         public AudioRolloffMode RolloffMode = AudioRolloffMode.Logarithmic;
-        [MinValue(0), MaxValue(nameof(MaxDistance))] public float MinDistance = 1f;
+        [MinValue(0)] [MaxValue(nameof(MaxDistance))] public float MinDistance = 1f;
         [MinValue(0)] public float MaxDistance = 500f;
     }
 }
