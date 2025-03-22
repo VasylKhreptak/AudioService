@@ -1,4 +1,5 @@
 ﻿using System;
+using Plugins.Timer.Reactive;
 using UniRx;
 
 namespace Plugins.Timer
@@ -7,11 +8,13 @@ namespace Plugins.Timer
     {
         public IReadOnlyReactiveProperty<float> Progress { get; }
         public IReadOnlyReactiveProperty<float> RemainingProgress { get; }
-        public IReadOnlyReactiveProperty<float> Time { get; }
-        public IReadOnlyReactiveProperty<float> RemainingTime { get; }
-        public IReadOnlyReactiveProperty<float> TargetTime { get; }
+        public IReadOnlyReactiveTimeSpan Time { get; }
+        public IReadOnlyReactiveTimeSpan RemainingTime { get; }
+        public IReadOnlyReactiveTimeSpan TargetTime { get; }
         public IReadOnlyReactiveProperty<float> TimeScale { get; }
         public IReadOnlyReactiveProperty<bool> IsPaused { get; }
+
+        public UpdateMethod UpdateMethod { get; }
 
         public IObservable<Unit> OnStarted { get; }
         public IObservable<Unit> OnCompleted { get; }

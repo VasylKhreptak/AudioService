@@ -343,9 +343,9 @@ namespace Plugins.AudioService
                     allPrioritiesAreEqual = false;
                 }
 
-                if (pooledObject.Audio.Timer.Time.Value > maxPlayTime)
+                if (pooledObject.Audio.Timer.Time.TotalSeconds.Value > maxPlayTime)
                 {
-                    maxPlayTime = pooledObject.Audio.Timer.Time.Value;
+                    maxPlayTime = (float)pooledObject.Audio.Timer.Time.TotalSeconds.Value;
                     longestPlayedPooledObject = pooledObject;
                 }
             }

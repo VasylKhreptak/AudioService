@@ -1,4 +1,5 @@
-﻿using Plugins.AudioService.Facade.Core;
+﻿using System;
+using Plugins.AudioService.Facade.Core;
 using Plugins.Timer;
 using UniRx;
 using UnityEngine;
@@ -35,7 +36,7 @@ namespace Plugins.AudioService.Facade
                 value = Mathf.Clamp(value, 0, Clip.length - 0.01f);
 
                 _source.time = value;
-                _timer.SetTime(value);
+                _timer.SetTime(TimeSpan.FromSeconds(value));
             }
         }
 
@@ -171,7 +172,7 @@ namespace Plugins.AudioService.Facade
         {
             _gameObject.SetActive(true);
             _source.Play();
-            _timer.Start(Clip.length);
+            _timer.Start(TimeSpan.FromSeconds(Clip.length));
             _timer.SetTimeScale(Pitch);
         }
 
@@ -223,7 +224,7 @@ namespace Plugins.AudioService.Facade
                     Stop();
                 else
                 {
-                    _timer.Start(Clip.length);
+                    _timer.Start(TimeSpan.FromSeconds(Clip.length));
                     _timer.SetTimeScale(Pitch);
                 }
             });
