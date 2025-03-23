@@ -1,4 +1,5 @@
 ﻿using Plugins.AudioService.Core;
+using Plugins.AudioService.Data;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -9,9 +10,11 @@ namespace Test
     public class MouseShooterTest : MonoBehaviour
     {
         [Header("Preferences")]
-        [SerializeField] private AudioClip _clip;
-        [SerializeField] private AudioSettings _settings;
+        [SerializeField] private SoundConfig _soundConfig;
 
+        [Space]
+        [SerializeField] private AudioSettings _settings;
+        
         private IAudioService _audioService;
 
         [Inject]
@@ -32,7 +35,7 @@ namespace Test
 
                 if (Physics.Raycast(ray, out RaycastHit hit))
                 {
-                    _audioID = _audioService.Play(_clip, hit.point, _settings);
+                    _audioID = _audioService.Play(_soundConfig, hit.point);
                 }
             }
         }
