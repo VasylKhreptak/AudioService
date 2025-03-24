@@ -36,7 +36,7 @@ namespace Test
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
-                _audioService.Time.TrySet(_audioID, 0);
+                _audioService.Properties.Time.TrySet(_audioID, 0);
             }
 
             if (Input.GetKeyDown(KeyCode.Space))
@@ -45,8 +45,8 @@ namespace Test
                 Debug.Log("Play");
             }
 
-            if (_audioService.Timer.TryGet(_audioID, out IReadonlyTimer timer))
-                Debug.Log($"Time: {timer.Time}");
+            if (_audioService.Properties.Timer.TryGet(_audioID, out IReadonlyTimer timer))
+                Debug.Log($"Time: {timer.Time.TotalSeconds.Value}");
         }
 
         #endregion
@@ -68,12 +68,12 @@ namespace Test
         [Button] private void ActiveLoopedAudiosCount() => Debug.Log(_audioService.ActiveAudiosCount(audio => audio.Loop));
         [Button] private void ApplySettings() => _audioService.ApplySettings(_audioID, _settings);
 
-        private void SetTime(float time) => _audioService.Time.TrySet(_audioID, time);
+        private void SetTime(float time) => _audioService.Properties.Time.TrySet(_audioID, time);
 
         private void AddTime(float time)
         {
-            if (_audioService.Time.TryGet(_audioID, out float currentTime))
-                _audioService.Time.TrySet(_audioID, currentTime + time);
+            if (_audioService.Properties.Time.TryGet(_audioID, out float currentTime))
+                _audioService.Properties.Time.TrySet(_audioID, currentTime + time);
         }
     }
 }

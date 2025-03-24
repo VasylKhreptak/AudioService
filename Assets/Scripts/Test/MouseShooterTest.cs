@@ -1,6 +1,7 @@
 ﻿using Plugins.AudioService.Core;
 using Plugins.AudioService.Data;
 using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 using AudioSettings = Plugins.AudioService.Data.AudioSettings;
@@ -70,6 +71,6 @@ namespace Test
         private void ApplySettings() => _audioService.ApplySettings(_audioID, _settings);
 
         [Button]
-        private void SetTime(float time) => _audioService.Time.TrySet(_audioID, time);
+        private void SetTime(float time) => _audioService.Properties.Time.TrySet(_audioID, time);
     }
 }

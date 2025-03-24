@@ -41,4 +41,4 @@ MonoBehaviour:
     RolloffMode: 0
     MinDistance: 1
     MaxDistance: 500
-  _pitchShift: 0
+  _pitchShift: 0.14
